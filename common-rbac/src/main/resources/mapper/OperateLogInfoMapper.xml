@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdy.common.rbac.mapper.OperateLogInfoMapper">
+  <resultMap id="BaseResultMap" type="com.cdy.common.rbac.entiy.OperateLogInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="from_ip" jdbcType="VARCHAR" property="fromIp" />
+    <result column="operate_func" jdbcType="VARCHAR" property="operateFunc" />
+    <result column="visit_method" jdbcType="VARCHAR" property="visitMethod" />
+    <result column="method_cost_time" jdbcType="VARCHAR" property="methodCostTime" />
+    <result column="log_type" jdbcType="VARCHAR" property="logType" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="visit_method_error_info" jdbcType="VARCHAR" property="visitMethodErrorInfo" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="login_out_time" jdbcType="TIMESTAMP" property="loginOutTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operate_log_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cdy.common.rbac.entiy.OperateLogInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into operate_log_info (id, uid, uname, 
+      from_ip, operate_func, visit_method, 
+      method_cost_time, log_type, uri, 
+      method, visit_method_error_info, status, 
+      login_out_time, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, 
+      #{fromIp,jdbcType=VARCHAR}, #{operateFunc,jdbcType=VARCHAR}, #{visitMethod,jdbcType=VARCHAR}, 
+      #{methodCostTime,jdbcType=VARCHAR}, #{logType,jdbcType=VARCHAR}, #{uri,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{visitMethodErrorInfo,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, 
+      #{loginOutTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cdy.common.rbac.entiy.OperateLogInfo">
+    update operate_log_info
+    set uid = #{uid,jdbcType=INTEGER},
+      uname = #{uname,jdbcType=VARCHAR},
+      from_ip = #{fromIp,jdbcType=VARCHAR},
+      operate_func = #{operateFunc,jdbcType=VARCHAR},
+      visit_method = #{visitMethod,jdbcType=VARCHAR},
+      method_cost_time = #{methodCostTime,jdbcType=VARCHAR},
+      log_type = #{logType,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      visit_method_error_info = #{visitMethodErrorInfo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      login_out_time = #{loginOutTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, uid, uname, from_ip, operate_func, visit_method, method_cost_time, log_type, 
+    uri, method, visit_method_error_info, status, login_out_time, create_time, update_time
+    from operate_log_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, uid, uname, from_ip, operate_func, visit_method, method_cost_time, log_type, 
+    uri, method, visit_method_error_info, status, login_out_time, create_time, update_time
+    from operate_log_info
+  </select>
+  <resultMap id="BaseResultMap" type="com.cdy.common.rbac.entiy.OperateLogInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="from_ip" jdbcType="VARCHAR" property="fromIp" />
+    <result column="operate_func" jdbcType="VARCHAR" property="operateFunc" />
+    <result column="visit_method" jdbcType="VARCHAR" property="visitMethod" />
+    <result column="method_cost_time" jdbcType="VARCHAR" property="methodCostTime" />
+    <result column="log_type" jdbcType="VARCHAR" property="logType" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="visit_method_error_info" jdbcType="VARCHAR" property="visitMethodErrorInfo" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="login_out_time" jdbcType="TIMESTAMP" property="loginOutTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, uid, uname, from_ip, operate_func, visit_method, method_cost_time, log_type, 
+    uri, method, visit_method_error_info, status, login_out_time, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.cdy.common.rbac.entiy.OperateLogInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from operate_log_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operate_log_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operate_log_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cdy.common.rbac.entiy.OperateLogInfoExample">
+    delete from operate_log_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cdy.common.rbac.entiy.OperateLogInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into operate_log_info (id, uid, uname, 
+      from_ip, operate_func, visit_method, 
+      method_cost_time, log_type, uri, 
+      method, visit_method_error_info, status, 
+      login_out_time, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, 
+      #{fromIp,jdbcType=VARCHAR}, #{operateFunc,jdbcType=VARCHAR}, #{visitMethod,jdbcType=VARCHAR}, 
+      #{methodCostTime,jdbcType=VARCHAR}, #{logType,jdbcType=VARCHAR}, #{uri,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{visitMethodErrorInfo,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, 
+      #{loginOutTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cdy.common.rbac.entiy.OperateLogInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into operate_log_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+      <if test="fromIp != null">
+        from_ip,
+      </if>
+      <if test="operateFunc != null">
+        operate_func,
+      </if>
+      <if test="visitMethod != null">
+        visit_method,
+      </if>
+      <if test="methodCostTime != null">
+        method_cost_time,
+      </if>
+      <if test="logType != null">
+        log_type,
+      </if>
+      <if test="uri != null">
+        uri,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="visitMethodErrorInfo != null">
+        visit_method_error_info,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="loginOutTime != null">
+        login_out_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="uname != null">
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="fromIp != null">
+        #{fromIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operateFunc != null">
+        #{operateFunc,jdbcType=VARCHAR},
+      </if>
+      <if test="visitMethod != null">
+        #{visitMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="methodCostTime != null">
+        #{methodCostTime,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null">
+        #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="visitMethodErrorInfo != null">
+        #{visitMethodErrorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="loginOutTime != null">
+        #{loginOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cdy.common.rbac.entiy.OperateLogInfoExample" resultType="java.lang.Integer">
+    select count(*) from operate_log_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update operate_log_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uname != null">
+        uname = #{record.uname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromIp != null">
+        from_ip = #{record.fromIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateFunc != null">
+        operate_func = #{record.operateFunc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitMethod != null">
+        visit_method = #{record.visitMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.methodCostTime != null">
+        method_cost_time = #{record.methodCostTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logType != null">
+        log_type = #{record.logType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uri != null">
+        uri = #{record.uri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null">
+        method = #{record.method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitMethodErrorInfo != null">
+        visit_method_error_info = #{record.visitMethodErrorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.loginOutTime != null">
+        login_out_time = #{record.loginOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update operate_log_info
+    set id = #{record.id,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      uname = #{record.uname,jdbcType=VARCHAR},
+      from_ip = #{record.fromIp,jdbcType=VARCHAR},
+      operate_func = #{record.operateFunc,jdbcType=VARCHAR},
+      visit_method = #{record.visitMethod,jdbcType=VARCHAR},
+      method_cost_time = #{record.methodCostTime,jdbcType=VARCHAR},
+      log_type = #{record.logType,jdbcType=VARCHAR},
+      uri = #{record.uri,jdbcType=VARCHAR},
+      method = #{record.method,jdbcType=VARCHAR},
+      visit_method_error_info = #{record.visitMethodErrorInfo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=BIT},
+      login_out_time = #{record.loginOutTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdy.common.rbac.entiy.OperateLogInfo">
+    update operate_log_info
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="uname != null">
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="fromIp != null">
+        from_ip = #{fromIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operateFunc != null">
+        operate_func = #{operateFunc,jdbcType=VARCHAR},
+      </if>
+      <if test="visitMethod != null">
+        visit_method = #{visitMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="methodCostTime != null">
+        method_cost_time = #{methodCostTime,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null">
+        log_type = #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="visitMethodErrorInfo != null">
+        visit_method_error_info = #{visitMethodErrorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="loginOutTime != null">
+        login_out_time = #{loginOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cdy.common.rbac.entiy.OperateLogInfo">
+    update operate_log_info
+    set uid = #{uid,jdbcType=INTEGER},
+      uname = #{uname,jdbcType=VARCHAR},
+      from_ip = #{fromIp,jdbcType=VARCHAR},
+      operate_func = #{operateFunc,jdbcType=VARCHAR},
+      visit_method = #{visitMethod,jdbcType=VARCHAR},
+      method_cost_time = #{methodCostTime,jdbcType=VARCHAR},
+      log_type = #{logType,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      visit_method_error_info = #{visitMethodErrorInfo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      login_out_time = #{loginOutTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

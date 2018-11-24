@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: rbac
+server:
+  port: 9090
+  
