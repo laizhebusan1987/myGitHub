@@ -1,5 +1,8 @@
 package com.cdy.common.rbac.config;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -30,18 +33,36 @@ public class MybatisConfiguration {
 		dataSource.setLoginTimeout(2);
 		dataSource.setBreakAfterAcquireFailure(true);
 		dataSource.setConnectionErrorRetryAttempts(0);
+		try {
+			dataSource.init();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dataSource;
 	}
 	
 	@Bean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+	public SqlSessionFactory sqlSessionFactory(DataSource dataSource){
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setTypeAliasesPackage("com.cdy.common.rbac.entiy");
 		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-		Resource[] resources = resolver.getResources("classpath:mapper/*.xml");
+		Resource[] resources = null;
+		try {
+			resources = resolver.getResources("classpath:mapper/*.xml");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		sqlSessionFactoryBean.setMapperLocations(resources);
-		return sqlSessionFactoryBean.getObject();
+		try {
+			return sqlSessionFactoryBean.getObject();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@Bean

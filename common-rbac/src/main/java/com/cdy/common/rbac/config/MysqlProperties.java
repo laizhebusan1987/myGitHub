@@ -9,7 +9,8 @@ public class MysqlProperties {
 	@Value("com.mysql.jdbc.Driver")
 	private String driverClass;
 	
-	@Value("jdbc:mysql://localhost:3306/rbac?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true")
+//	@Value("jdbc:mysql://localhost:3306/rbac?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=true")
+	@Value("jdbc:mysql://localhost:3306/rbac")
 	private String url;
 	
 	@Value("root")
