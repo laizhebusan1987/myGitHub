@@ -3,7 +3,10 @@ package com.cdy.common.rbac.entiy;
 import java.util.Date;
 
 public class Permission extends BaseEntity {
-    private Integer id;
+
+	private static final long serialVersionUID = -2145061351737067928L;
+
+	private Integer id;
 
     private String title;
 

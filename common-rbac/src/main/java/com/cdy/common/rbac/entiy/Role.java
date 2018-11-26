@@ -3,7 +3,12 @@ package com.cdy.common.rbac.entiy;
 import java.util.Date;
 
 public class Role extends BaseEntity {
-    private Integer id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2821323857453479360L;
+
+	private Integer id;
 
     private String name;
 
