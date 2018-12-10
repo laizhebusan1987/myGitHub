@@ -57,4 +57,11 @@ public class Role extends BaseEntity {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", name=" + name + ", status=" + status + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + "]";
+	}
+    
 }
